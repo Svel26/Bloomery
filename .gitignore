@@ -1,0 +1,36 @@
+# Gradle build outputs & cache
+.gradle/
+build/
+bin/
+out/
+
+# IDE configurations
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.project
+.classpath
+.settings/
+
+# Minecraft client/server runs and test directories
+runs/
+run/
+
+# Logs and crash reports
+*.log
+logs/
+crash-reports/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Package / distribution archives
+*.jar
+!gradle/wrapper/gradle-wrapper.jar

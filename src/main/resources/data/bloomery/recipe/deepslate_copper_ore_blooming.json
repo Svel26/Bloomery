@@ -1,0 +1,12 @@
+{
+  "type": "bloomery:blooming",
+  "category": "misc",
+  "ingredient": {
+    "item": "minecraft:deepslate_copper_ore"
+  },
+  "result": {
+    "id": "minecraft:copper_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 1200
+}

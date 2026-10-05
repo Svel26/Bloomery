@@ -1,0 +1,18 @@
+{
+  "block.bloomery.packed_mud_bloomery": "Packed Mud Bloomery",
+  "block.bloomery.mud_brick_bloomery": "Mud Brick Bloomery",
+  "container.bloomery.packed_mud": "Packed Mud Bloomery",
+  "container.bloomery.mud_brick": "Mud Brick Bloomery",
+  "itemGroup.bloomery": "Bloomery",
+  "gui.bloomery.heating_active": "§aCampfire Lit & Multiblock Complete",
+  "gui.bloomery.heating_inactive": "§cCampfire Unlit or Multiblock Incomplete",
+  "gui.bloomery.campfire_missing": "§cRequires a lit campfire underneath the center chamber!",
+  "gui.bloomery.chimney_blocked": "§cChimney is blocked! Top center must be open air.",
+  "gui.bloomery.multiblock_missing": "§cSurrounding multiblock ring or chimney walls are incomplete.",
+  "jade.campfires.burn_time": "Burns for: %s",
+  "jade.campfires.logs": "Logs: %s/4",
+  "jade.campfires.embers": "Embers: %s",
+  "jade.campfires.unlit": "Unlit: %s/4 logs",
+  "jade.campfires.burnt": "Burnt out",
+  "jade.campfires.igniting": "Lighting: %s%%"
+}

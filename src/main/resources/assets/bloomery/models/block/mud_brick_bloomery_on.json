@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "minecraft:block/mud_bricks",
+    "bottom": "minecraft:block/mud_bricks",
+    "side": "minecraft:block/mud_bricks",
+    "front": "bloomery:block/mud_brick_bloomery_front_on"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " P ",
+    "P P",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:packed_mud"
+    }
+  },
+  "result": {
+    "id": "bloomery:mud_brick_bloomery",
+    "count": 1
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "top": "minecraft:block/packed_mud",
+    "bottom": "minecraft:block/packed_mud",
+    "side": "minecraft:block/packed_mud",
+    "front": "bloomery:block/packed_mud_bloomery_front_on"
+  }
+}

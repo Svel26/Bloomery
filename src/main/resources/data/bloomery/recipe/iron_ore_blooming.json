@@ -1,0 +1,20 @@
+{
+  "type": "bloomery:blooming",
+  "category": "misc",
+  "ingredient": [
+    {
+      "item": "minecraft:iron_ore"
+    },
+    {
+      "item": "minecraft:deepslate_iron_ore"
+    },
+    {
+      "tag": "c:ores/iron"
+    }
+  ],
+  "result": {
+    "id": "minecraft:iron_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 1200
+}

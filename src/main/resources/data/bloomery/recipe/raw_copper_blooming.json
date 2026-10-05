@@ -1,0 +1,17 @@
+{
+  "type": "bloomery:blooming",
+  "category": "misc",
+  "ingredient": [
+    {
+      "item": "minecraft:raw_copper"
+    },
+    {
+      "tag": "c:raw_materials/copper"
+    }
+  ],
+  "result": {
+    "id": "minecraft:copper_ingot"
+  },
+  "experience": 0.7,
+  "cookingtime": 1200
+}
