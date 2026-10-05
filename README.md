@@ -1,7 +1,7 @@
 # Bloomery Mod
 
 <p align="center">
-  <img src="logo.png" alt="Bloomery Mod Icon" width="200"/>
+  <img src="logo.png" alt="Bloomery Logo" width="200"/>
 </p>
 
 A Minecraft 1.21.1 NeoForge mod designed to slow down early-game progression by disabling raw ore smelting in standard furnaces and introducing an authentic **Bloomery Multiblock Smelter**.
