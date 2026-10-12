@@ -1,0 +1,103 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out tagged release commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Set up Java 21 with Gradle cache
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x ./gradlew
+
+      - name: Build with Gradle wrapper
+        run: ./gradlew clean build --no-daemon
+
+      - name: Resolve publish version
+        id: version
+        run: |
+          TAG="${{ github.event.release.tag_name }}"
+          VERSION="${TAG#v}"
+          VERSION="${VERSION#V}"
+          echo "modrinth_version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Locate production JAR
+        id: artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+
+          candidates=(build/libs/*.jar)
+          runtime_jars=()
+
+          for jar in "${candidates[@]}"; do
+            name="$(basename "$jar")"
+            case "$name" in
+              *-sources.jar|*-javadoc.jar|*-dev.jar|*-dev-all.jar)
+                continue
+                ;;
+            esac
+            runtime_jars+=("$jar")
+          done
+
+          if [ "${#runtime_jars[@]}" -eq 0 ]; then
+            echo "No production runtime JAR found in build/libs/." >&2
+            ls -la build/libs/ || true
+            exit 1
+          fi
+
+          if [ "${#runtime_jars[@]}" -gt 1 ]; then
+            echo "Multiple runtime JAR candidates found; expected exactly one:" >&2
+            printf ' - %s\n' "${runtime_jars[@]}" >&2
+            exit 1
+          fi
+
+          JAR_PATH="${runtime_jars[0]}"
+          echo "jar_path=$JAR_PATH" >> "$GITHUB_OUTPUT"
+          echo "jar_name=$(basename "$JAR_PATH")" >> "$GITHUB_OUTPUT"
+
+      - name: Upload JAR to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.artifact.outputs.jar_path }}
+
+      - name: Validate Modrinth secrets
+        env:
+          MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          MODRINTH_PROJECT_ID: ${{ secrets.MODRINTH_PROJECT_ID }}
+        run: |
+          if [ -z "$MODRINTH_TOKEN" ] || [ -z "$MODRINTH_PROJECT_ID" ]; then
+            echo "Missing required secrets: MODRINTH_TOKEN and/or MODRINTH_PROJECT_ID." >&2
+            exit 1
+          fi
+
+      - name: Publish JAR to Modrinth
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          modrinth-id: ${{ secrets.MODRINTH_PROJECT_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          files: ${{ steps.artifact.outputs.jar_path }}
+          name: ${{ github.event.release.name || steps.version.outputs.modrinth_version }}
+          version: ${{ steps.version.outputs.modrinth_version }}
+          version-type: ${{ github.event.release.prerelease && 'beta' || 'release' }}
+          changelog: ${{ github.event.release.body }}
+          loaders: neoforge
+          game-versions: 1.21.1
