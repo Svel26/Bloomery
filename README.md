@@ -95,3 +95,24 @@ The Bloomery includes **seamless, out-of-the-box compatibility with Primity**:
 - **Dynamic & Safe**: If Primity is not present or removed, the Bloomery automatically falls back to vanilla iron and gold ingots with zero crashes or missing recipe issues.
 
 
+## 🚀 Automated Releases (GitHub Release → Modrinth)
+
+This repository includes `.github/workflows/release.yml`.
+When a **GitHub Release** is published, it will:
+
+1. Check out the release tag commit.
+2. Build the mod with Java 21 using `./gradlew clean build`.
+3. Select exactly one production runtime JAR from `build/libs/` (excluding `-sources`, `-javadoc`, and `-dev` jars).
+4. Upload that JAR to the GitHub Release.
+5. Publish the same JAR to Modrinth for **Minecraft 1.21.1** with loader **NeoForge**.
+
+Required repository secrets:
+
+- `MODRINTH_TOKEN` — Modrinth API token with version upload permission.
+- `MODRINTH_PROJECT_ID` — The Modrinth project ID for Bloomery.
+
+Release process:
+
+- Ensure `mod_version` in `gradle.properties` matches the intended release.
+- Create and publish a GitHub Release (tag like `1.0.0` or `v1.0.0`).
+- The workflow will publish to Modrinth using the tag (with an optional leading `v` removed) as the Modrinth version.
